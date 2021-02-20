@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="FillSizeVO"
+  Version="11.1.1.62.29"
+  InheritPersonalization="true"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  RowClass="mnj.mfg.model.lov.FillSizeVORowImpl"
+  ComponentClass="mnj.mfg.model.lov.FillSizeVOImpl"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
+    <Attr Name="_isExpertMode" Value="true"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="mnj.mfg.model.lov.FillSizeVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery>
+    <![CDATA[/* Formatted on 11/12/2019 12:44:05 PM Updated by Syed Abdul Ahad */
+  SELECT --h.header_id,
+         ReciveSizeInseemDEO.ATTRIBUTE1,
+         ReciveSizeInseemDEO.SIZE_INSEAM,
+         SUM (ReciveSizeInseemDEO.QUANTITY) QUANTITY,
+         NULL header_id,
+         ll.style_name,
+         ReceiveDetailEO.ATTRIBUTE2,
+         ll.ATTRIBUTE1 buyer,                                             
+         ll.SEASON,
+         ReceiveDetailEO.ATTRIBUTE1 bpo,
+         ReceiveDetailEO.ATTRIBUTE3 color
+    --l.attribute2
+    FROM MNJ_MFG_ISSUE_REC_WASH_H h,
+         MNJ_MFG_ISSUE_REC_WASH_L_H ll,
+         MNJ_MFG_ISSUE_REC_WASH_D ReceiveDetailEO,
+         MNJ_MFG_REC_INSEAM_SIZE_D ReciveSizeInseemDEO
+   WHERE     h.HEADER_ID = ll.HEADER_ID
+         AND ll.line_id = ReceiveDetailEO.header_id
+         AND ReciveSizeInseemDEO.RECEVING_DETAIL =
+                ReceiveDetailEO.RECEVING_DETAIL
+GROUP BY ll.style_name,
+         ll.ATTRIBUTE1,                                                    --,
+         ll.SEASON,
+         ReceiveDetailEO.ATTRIBUTE1,
+         ReceiveDetailEO.ATTRIBUTE2,
+         ReceiveDetailEO.ATTRIBUTE3,
+         ReciveSizeInseemDEO.ATTRIBUTE1,
+         ReciveSizeInseemDEO.SIZE_INSEAM
+---------Above Code is exist in Existing Query-------
+UNION ALL
+  /*--------Purpose-----------------------------------
+   Following Code is being added for getting new nonwashable styles in existing Query
+   Formatted on 11/12/2019 12:17:39 PM (QP5 v5.256.13226.35510) Formatted By : Syed Ahad
+   */
+  SELECT Z.ATTRIBUTE1 ATTRIBUTE1,
+         Z.SIZE_INSEAM,
+         SUM (Z.QUANTITY) QUANTITY,
+         NULL header_id,
+         L.STYLE_NAME,
+         D.ATTRIBUTE2,
+         L.ATTRIBUTE1 buyer,                                               --,
+         L.SEASON,
+         D.ATTRIBUTE1 BPO,
+         D.ATTRIBUTE3 Color
+    FROM MNJ_MFG_ISSUE_REC_WASH_H H,
+         MNJ_MFG_ISSUE_REC_WASH_L_H L,
+         MNJ_MFG_ISSUE_REC_WASH_L D,
+         MNJ_MFG_ISSUE_INSEAM_SIZE_D Z
+   WHERE     1 = 1
+         AND H.HEADER_ID = L.HEADER_ID
+         AND D.HEADER_ID = L.LINE_ID                                        --
+         AND Z.LINE_ID = D.LINE_ID
+         AND H.TRANSACTION_TYPE = 'Ready For Finish Department'
+--AND L.STYLE_NAME='460620M'  --Parameter
+--AND L.SEASON='Spring-20'    --Parameter
+--AND L.BUYER_ID=46245        --Parameter
+--AND H.ORG_ID=340            --Parameter
+GROUP BY Z.ATTRIBUTE1,
+         Z.SIZE_INSEAM,
+         L.STYLE_NAME,
+         D.ATTRIBUTE2,
+         L.ATTRIBUTE1,
+         L.SEASON,
+         D.ATTRIBUTE1,
+         D.ATTRIBUTE3]]>
+  </SQLQuery>
+  <ViewAttribute
+    Name="Attribute1"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="250"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ATTRIBUTE1"
+    Expression="ATTRIBUTE1"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SizeInseam"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="500"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SIZE_INSEAM"
+    Expression="SIZE_INSEAM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="500"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Quantity"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="QUANTITY"
+    Expression="QUANTITY"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="HeaderId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="HEADER_ID"
+    Expression="HEADER_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="StyleName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="500"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="STYLE_NAME"
+    Expression="STYLE_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="500"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Attribute2"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="250"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ATTRIBUTE2"
+    Expression="ATTRIBUTE2"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Buyer"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="250"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="BUYER"
+    Expression="BUYER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Season"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="250"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SEASON"
+    Expression="SEASON"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Bpo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="250"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="BPO"
+    Expression="BPO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Color"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="250"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="COLOR"
+    Expression="COLOR"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Sizee"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SIZEE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Inseme"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="97"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INSEME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="97"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InseamSizeConcat"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INSEAM_SIZE_CONCAT"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ShippingInstructions"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="2000"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SHIPPING_INSTRUCTIONS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2000"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CustPoNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CUST_PO_NUMBER"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SFLAG"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

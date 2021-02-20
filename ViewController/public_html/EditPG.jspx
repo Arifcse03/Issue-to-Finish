@@ -1,0 +1,484 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1">
+      <af:messages id="m1"/>
+      <af:form id="f1">
+        <af:panelHeader text="Issue to Finish" id="ph1">
+          <f:facet name="context"/>
+          <f:facet name="menuBar"/>
+          <f:facet name="toolbar"/>
+          <f:facet name="legend"/>
+          <f:facet name="info"/>
+          <af:panelFormLayout id="pfl1" maxColumns="2" rows="3">
+            <af:inputText value="#{bindings.ReceiveNo.inputValue}"
+                          label="Doc No"
+                          required="#{bindings.ReceiveNo.hints.mandatory}"
+                          columns="#{bindings.ReceiveNo.hints.displayWidth}"
+                          maximumLength="#{bindings.ReceiveNo.hints.precision}"
+                          shortDesc="#{bindings.ReceiveNo.hints.tooltip}"
+                          id="it4" readOnly="true">
+              <f:validator binding="#{bindings.ReceiveNo.validator}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.Attribute1.inputValue}"
+                          label="Unit"
+                          required="#{bindings.Attribute1.hints.mandatory}"
+                          columns="#{bindings.Attribute1.hints.displayWidth}"
+                          maximumLength="#{bindings.Attribute1.hints.precision}"
+                          shortDesc="#{bindings.Attribute1.hints.tooltip}"
+                          id="it2" readOnly="true">
+              <f:validator binding="#{bindings.Attribute1.validator}"/>
+            </af:inputText>
+            <af:inputListOfValues id="pocIdId"
+                                  popupTitle="Search and Select: #{bindings.PocId.hints.label}"
+                                  value="#{bindings.PocId.inputValue}"
+                                  label="POC ID:"
+                                  model="#{bindings.PocId.listOfValuesModel}"
+                                  required="#{bindings.PocId.hints.mandatory}"
+                                  columns="#{bindings.PocId.hints.displayWidth}"
+                                  shortDesc="#{bindings.PocId.hints.tooltip}"
+                                  autoSubmit="true">
+              <f:validator binding="#{bindings.PocId.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.PocId.format}"/>
+            </af:inputListOfValues>
+            <af:panelLabelAndMessage label="BUYER:"
+                                     id="plam1">
+              <af:outputText value="#{bindings.BuyerNew.inputValue}" id="ot12"
+                             partialTriggers="pocIdId"/>
+            </af:panelLabelAndMessage>
+            <af:panelLabelAndMessage label="STYLE:"
+                                     id="plam2" partialTriggers="pocIdId">
+              <af:outputText value="#{bindings.StyleNew.inputValue}" id="ot13"/>
+            </af:panelLabelAndMessage>
+            <af:panelLabelAndMessage label="SEASON:"
+                                     id="plam3">
+              <af:outputText value="#{bindings.SeasonNew.inputValue}"
+                             id="ot14"/>
+            </af:panelLabelAndMessage>
+            <af:inputDate value="#{bindings.UpdateOn.inputValue}"
+                          label="Date"
+                          required="#{bindings.UpdateOn.hints.mandatory}"
+                          shortDesc="#{bindings.UpdateOn.hints.tooltip}"
+                          id="id1">
+              <f:validator binding="#{bindings.UpdateOn.validator}"/>
+              <af:convertDateTime pattern="#{bindings.UpdateOn.format}"/>
+            </af:inputDate>
+            <af:inputListOfValues id="lineNoId"
+                                  popupTitle="Search and Select: #{bindings.LineNo.hints.label}"
+                                  value="#{bindings.LineNo.inputValue}"
+                                  label="Line No"
+                                  model="#{bindings.LineNo.listOfValuesModel}"
+                                  required="#{bindings.LineNo.hints.mandatory}"
+                                  columns="#{bindings.LineNo.hints.displayWidth}"
+                                  shortDesc="#{bindings.LineNo.hints.tooltip}">
+              <f:validator binding="#{bindings.LineNo.validator}"/>
+            </af:inputListOfValues>
+            <af:inputText value="#{bindings.HeaderId.inputValue}"
+                          label="#{bindings.HeaderId.hints.label}"
+                          required="#{bindings.HeaderId.hints.mandatory}"
+                          columns="#{bindings.HeaderId.hints.displayWidth}"
+                          maximumLength="#{bindings.HeaderId.hints.precision}"
+                          shortDesc="#{bindings.HeaderId.hints.tooltip}"
+                          id="it15" binding="#{Main.headerId}" visible="false">
+              <f:validator binding="#{bindings.HeaderId.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.HeaderId.format}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.BuyerId.inputValue}"
+                          label="#{bindings.BuyerId.hints.label}"
+                          required="#{bindings.BuyerId.hints.mandatory}"
+                          columns="#{bindings.BuyerId.hints.displayWidth}"
+                          maximumLength="#{bindings.BuyerId.hints.precision}"
+                          shortDesc="#{bindings.BuyerId.hints.tooltip}"
+                          id="it3" partialTriggers="buyerNameId"
+                          binding="#{Main.customerBuyerID}" visible="false">
+              <f:validator binding="#{bindings.BuyerId.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.BuyerId.format}"/>
+            </af:inputText>
+            <af:inputText value="#{bindings.HeaderId.inputValue}"
+                          label="#{bindings.HeaderId.hints.label}"
+                          required="#{bindings.HeaderId.hints.mandatory}"
+                          columns="#{bindings.HeaderId.hints.displayWidth}"
+                          maximumLength="#{bindings.HeaderId.hints.precision}"
+                          shortDesc="#{bindings.HeaderId.hints.tooltip}"
+                          id="it5" visible="false">
+              <f:validator binding="#{bindings.HeaderId.validator}"/>
+              <af:convertNumber groupingUsed="false"
+                                pattern="#{bindings.HeaderId.format}"/>
+            </af:inputText>
+            <f:facet name="footer">
+              <af:group id="g1">
+                <af:spacer width="10" height="30" id="s1"/>
+                <af:panelGroupLayout layout="horizontal" id="pgl1"
+                                     halign="center">
+                  <af:spacer width="500" height="10" id="spacer1"/>
+                  <af:commandButton
+                                    text="Save"
+                                    id="cb1" action="#{Main.Save}"/>
+                  <af:commandButton actionListener="#{bindings.Rollback.execute}"
+                                    text="Back"
+                                    immediate="true" id="cb2" action="Back">
+                    <af:resetActionListener/>
+                  </af:commandButton>
+                  <af:commandButton text="Requisition for Accessories" id="cb8"
+                                    action="#{Main.RequisitionAccessories}"/>
+                </af:panelGroupLayout>
+              </af:group>
+            </f:facet>
+          </af:panelFormLayout>
+          <af:panelHeader text="--" id="ph2">
+            <f:facet name="context"/>
+            <f:facet name="menuBar"/>
+            <f:facet name="toolbar"/>
+            <f:facet name="legend"/>
+            <f:facet name="info"/>
+            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar">
+                <af:toolbar id="t2">
+                  <af:commandButton actionListener="#{bindings.CreateInsert.execute}"
+                                    text="Create"
+                                    id="cb3"/>
+                  <af:commandButton actionListener="#{bindings.Delete.execute}"
+                                    text="Delete"
+                                    disabled="#{!bindings.Delete.enabled}"
+                                    id="cb4"/>
+                  <af:commandButton text="Fill BPO" id="cb7">
+                    <af:showPopupBehavior popupId="::popup1" alignId="::f1"/>
+                  </af:commandButton>
+                </af:toolbar>
+              </f:facet>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.LineVO1.collectionModel}" var="row"
+                        rows="#{bindings.LineVO1.rangeSize}"
+                        emptyText="#{bindings.LineVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        fetchSize="#{bindings.LineVO1.rangeSize}"
+                        rowBandingInterval="0"
+                        filterModel="#{bindings.LineVO1Query.queryDescriptor}"
+                        queryListener="#{bindings.LineVO1Query.processQuery}"
+                        filterVisible="true" varStatus="vs"
+                        selectedRowKeys="#{bindings.LineVO1.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.LineVO1.collectionModel.makeCurrent}"
+                        rowSelection="single" id="t1"
+                        partialTriggers="::cb3 ::cb4" binding="#{Main.size1st}">
+                <af:column sortProperty="Attribute1" filterable="true"
+                           sortable="true"
+                           headerText="BPO"
+                           id="c2" align="center">
+                  <af:inputText value="#{row.bindings.Attribute1.inputValue}"
+                                label="#{bindings.LineVO1.hints.Attribute1.label}"
+                                required="#{bindings.LineVO1.hints.Attribute1.mandatory}"
+                                columns="#{bindings.LineVO1.hints.Attribute1.displayWidth}"
+                                maximumLength="#{bindings.LineVO1.hints.Attribute1.precision}"
+                                shortDesc="#{bindings.LineVO1.hints.Attribute1.tooltip}"
+                                id="it8" readOnly="true">
+                    <f:validator binding="#{row.bindings.Attribute1.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column headerText="Current BPO"
+                           id="c15" align="center" sortable="true"
+                           filterable="true" sortProperty="CurrentBpo">
+                  <af:outputText value="#{row.CurrentBpo}" id="ot8"/>
+                </af:column>
+                <af:column sortProperty="Attribute2" filterable="true"
+                           sortable="true"
+                           headerText="STN"
+                           id="c1" align="center">
+                  <af:inputText value="#{row.bindings.Attribute2.inputValue}"
+                                label="#{bindings.LineVO1.hints.Attribute2.label}"
+                                required="#{bindings.LineVO1.hints.Attribute2.mandatory}"
+                                columns="#{bindings.LineVO1.hints.Attribute2.displayWidth}"
+                                maximumLength="#{bindings.LineVO1.hints.Attribute2.precision}"
+                                shortDesc="#{bindings.LineVO1.hints.Attribute2.tooltip}"
+                                id="it9" readOnly="true">
+                    <f:validator binding="#{row.bindings.Attribute2.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="Attribute3" filterable="true"
+                           sortable="true"
+                           headerText="Color"
+                           id="c5" align="center">
+                  <af:inputText value="#{row.bindings.Attribute3.inputValue}"
+                                label="#{bindings.LineVO1.hints.Attribute3.label}"
+                                required="#{bindings.LineVO1.hints.Attribute3.mandatory}"
+                                columns="#{bindings.LineVO1.hints.Attribute3.displayWidth}"
+                                maximumLength="#{bindings.LineVO1.hints.Attribute3.precision}"
+                                shortDesc="#{bindings.LineVO1.hints.Attribute3.tooltip}"
+                                id="it10" readOnly="true">
+                    <f:validator binding="#{row.bindings.Attribute3.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="Quantity" filterable="true"
+                           sortable="true"
+                           headerText="Total Qty"
+                           id="c3" align="center">
+                  <af:inputText value="#{row.bindings.Quantity.inputValue}"
+                                label="#{bindings.LineVO1.hints.Quantity.label}"
+                                required="#{bindings.LineVO1.hints.Quantity.mandatory}"
+                                columns="#{bindings.LineVO1.hints.Quantity.displayWidth}"
+                                maximumLength="#{bindings.LineVO1.hints.Quantity.precision}"
+                                shortDesc="#{bindings.LineVO1.hints.Quantity.tooltip}"
+                                id="it7">
+                    <f:validator binding="#{row.bindings.Quantity.validator}"/>
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.LineVO1.hints.Quantity.format}"/>
+                  </af:inputText>
+                  <f:facet name="footer">
+                    <af:group id="g2">
+                      <af:panelGroupLayout id="pgl2"
+                                           inlineStyle="font-weight:bolder; height:15px;"
+                                           halign="center" layout="horizontal">
+                        <af:outputText value="#{bindings.Quantity_L.inputValue}"
+                                       id="ot6" noWrap="true">
+                          <af:convertNumber groupingUsed="false"
+                                            pattern="#{bindings.Quantity_L.format}"/>
+                        </af:outputText>
+                      </af:panelGroupLayout>
+                    </af:group>
+                  </f:facet>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </af:panelHeader>
+          <af:panelHeader text="Size" id="ph3">
+            <f:facet name="context"/>
+            <f:facet name="menuBar"/>
+            <f:facet name="toolbar"/>
+            <f:facet name="legend"/>
+            <f:facet name="info"/>
+            <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+              <f:facet name="menus"/>
+              <f:facet name="toolbar">
+                <af:toolbar id="t4">
+                  <af:commandButton actionListener="#{bindings.CreateInsert1.execute}"
+                                    text="Create"
+                                    id="cb5"/>
+                  <af:commandButton actionListener="#{bindings.Delete1.execute}"
+                                    text="Delete"
+                                    id="cb6"/>
+                  <af:commandButton text="Fill Sizes" id="commandButton1">
+                    <af:showPopupBehavior popupId="::popup2"/>
+                  </af:commandButton>
+                </af:toolbar>
+              </f:facet>
+              <f:facet name="statusbar"/>
+              <af:table value="#{bindings.InsemSizeDVO1.collectionModel}"
+                        var="row" rows="#{bindings.InsemSizeDVO1.rangeSize}"
+                        emptyText="#{bindings.InsemSizeDVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                        fetchSize="#{bindings.InsemSizeDVO1.rangeSize}"
+                        rowBandingInterval="0"
+                        filterModel="#{bindings.InsemSizeDVO1Query.queryDescriptor}"
+                        queryListener="#{bindings.InsemSizeDVO1Query.processQuery}"
+                        filterVisible="true" varStatus="vs"
+                        selectedRowKeys="#{bindings.InsemSizeDVO1.collectionModel.selectedRow}"
+                        selectionListener="#{bindings.InsemSizeDVO1.collectionModel.makeCurrent}"
+                        rowSelection="single" id="t3"
+                        partialTriggers="::cb5 ::cb6 :::pc1:t1" binding="#{Main.size2st}">
+                <af:column sortProperty="Attribute1" filterable="true"
+                           sortable="true"
+                           headerText="Inseam"
+                           id="c4" align="center">
+                  <af:inputText value="#{row.bindings.Attribute1.inputValue}"
+                                label="#{bindings.InsemSizeDVO1.hints.Attribute1.label}"
+                                required="#{bindings.InsemSizeDVO1.hints.Attribute1.mandatory}"
+                                columns="#{bindings.InsemSizeDVO1.hints.Attribute1.displayWidth}"
+                                maximumLength="#{bindings.InsemSizeDVO1.hints.Attribute1.precision}"
+                                shortDesc="#{bindings.InsemSizeDVO1.hints.Attribute1.tooltip}"
+                                id="it11" readOnly="true">
+                    <f:validator binding="#{row.bindings.Attribute1.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="SizeInseam" filterable="true"
+                           sortable="true"
+                           headerText="Size"
+                           id="c8" align="center">
+                  <af:inputText value="#{row.bindings.SizeInseam.inputValue}"
+                                label="#{bindings.InsemSizeDVO1.hints.SizeInseam.label}"
+                                required="#{bindings.InsemSizeDVO1.hints.SizeInseam.mandatory}"
+                                columns="#{bindings.InsemSizeDVO1.hints.SizeInseam.displayWidth}"
+                                maximumLength="#{bindings.InsemSizeDVO1.hints.SizeInseam.precision}"
+                                shortDesc="#{bindings.InsemSizeDVO1.hints.SizeInseam.tooltip}"
+                                id="it13" readOnly="true">
+                    <f:validator binding="#{row.bindings.SizeInseam.validator}"/>
+                  </af:inputText>
+                </af:column>
+                <af:column sortProperty="Quantity" filterable="true"
+                           sortable="true"
+                           headerText="Qty"
+                           id="c6" align="center">
+                  <af:inputText value="#{row.bindings.Quantity.inputValue}"
+                                label="#{bindings.InsemSizeDVO1.hints.Quantity.label}"
+                                required="#{bindings.InsemSizeDVO1.hints.Quantity.mandatory}"
+                                columns="#{bindings.InsemSizeDVO1.hints.Quantity.displayWidth}"
+                                maximumLength="#{bindings.InsemSizeDVO1.hints.Quantity.precision}"
+                                shortDesc="#{bindings.InsemSizeDVO1.hints.Quantity.tooltip}"
+                                id="it12" readOnly="false">
+                    <f:validator binding="#{row.bindings.Quantity.validator}"/>
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.InsemSizeDVO1.hints.Quantity.format}"/>
+                  </af:inputText>
+                  <f:facet name="footer">
+                    <af:group id="group1">
+                      <af:panelGroupLayout id="panelGroupLayout1"
+                                           inlineStyle="font-weight:bolder; height:15px;"
+                                           halign="center" layout="horizontal">
+                        <af:outputText value="#{bindings.Quantity_D.inputValue}"
+                                       id="ot7" noWrap="true">
+                          <af:convertNumber groupingUsed="false"
+                                            pattern="#{bindings.Quantity_D.format}"/>
+                        </af:outputText>
+                      </af:panelGroupLayout>
+                    </af:group>
+                  </f:facet>
+                </af:column>
+              </af:table>
+            </af:panelCollection>
+          </af:panelHeader>
+          <af:popup id="popup1"
+                    popupFetchListener="#{Main.editPopupFetchListener}"
+                    popupCanceledListener="#{Main.editPopupCancelListener}"
+                    contentDelivery="lazyUncached">
+            <af:dialog id="dialog1"
+                       dialogListener="#{Main.editDialogListShade}"
+                       title="Fill BPO">
+              <af:panelCollection id="pc5" inlineStyle="width:1000px;">
+                <f:facet name="menus"/>
+                <f:facet name="toolbar">
+                  <af:toolbar id="t10">
+                    <af:commandButton text="Select All" id="cb13"
+                                      actionListener="#{Main.SelectAll}"
+                                      partialSubmit="true"/>
+                    <af:commandButton text="DeSelect All" id="commandButton2"
+                                      actionListener="#{Main.DeSelectAll}"
+                                      partialSubmit="true"/>
+                  </af:toolbar>
+                </f:facet>
+                <f:facet name="statusbar"/>
+                <af:table value="#{bindings.FillBPOVO1.collectionModel}"
+                          var="row" rows="#{bindings.FillBPOVO1.rangeSize}"
+                          emptyText="#{bindings.FillBPOVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          fetchSize="#{bindings.FillBPOVO1.rangeSize}"
+                          rowBandingInterval="0"
+                          filterModel="#{bindings.FillBPOVO1Query.queryDescriptor}"
+                          queryListener="#{bindings.FillBPOVO1Query.processQuery}"
+                          filterVisible="true" varStatus="vs"
+                          selectedRowKeys="#{bindings.FillBPOVO1.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.FillBPOVO1.collectionModel.makeCurrent}"
+                          rowSelection="single" id="t5"
+                          binding="#{Main.selectAllTable}">
+                  <af:column id="c14" headerText="Select" align="center"
+                             width="30">
+                    <af:selectBooleanCheckbox value="#{row.bindings.Flag.inputValue}"
+                                              label="#{row.bindings.Flag.label}"
+                                              shortDesc="#{bindings.FillBPOVO1.hints.Flag.tooltip}"
+                                              id="sbc1"/>
+                  </af:column>
+                  <af:column headerText="Buyer"
+                             id="c18" align="center" sortable="true"
+                             filterable="true" sortProperty="BuyerName"
+                             width="150">
+                    <af:outputText value="#{row.BuyerName}" id="ot10"/>
+                  </af:column>
+                  <af:column headerText="Season"
+                             id="c19" align="center" sortable="true"
+                             filterable="true" sortProperty="Season">
+                    <af:outputText value="#{row.Season}" id="ot11"/>
+                  </af:column>
+                  <af:column headerText="Bpo"
+                             id="c9" align="center" sortable="true"
+                             filterable="true" sortProperty="Attribute1"
+                             width="200">
+                    <af:outputText value="#{row.Attribute1}" id="ot1"/>
+                  </af:column>
+                  <af:column headerText="Current Bpo"
+                             id="c17" align="center" sortable="true"
+                             filterable="true" sortProperty="CurrentBpo">
+                    <af:outputText value="#{row.CurrentBpo}" id="ot9"/>
+                  </af:column>
+                  <af:column headerText="Stn"
+                             id="c10" align="center" sortable="true"
+                             filterable="true" sortProperty="Attribute2"
+                             width="200">
+                    <af:outputText value="#{row.Attribute2}" id="ot2"/>
+                  </af:column>
+                  <af:column headerText="Color"
+                             id="c11" align="center" sortable="true"
+                             filterable="true" sortProperty="Attribute3">
+                    <af:outputText value="#{row.Attribute3}" id="ot3"/>
+                  </af:column>
+                </af:table>
+              </af:panelCollection>
+            </af:dialog>
+          </af:popup>
+          <af:popup id="popup2"
+                    popupFetchListener="#{Main.editPopupFetchListener1}"
+                    popupCanceledListener="#{Main.editPopupCancelListener1}"
+                    contentDelivery="lazyUncached">
+            <af:dialog id="dialog2"
+                       dialogListener="#{Main.editDialogListShade1}">
+              <af:panelCollection id="panelCollection2">
+                <f:facet name="menus"/>
+                <f:facet name="toolbar">
+                  <af:toolbar id="toolbar1">
+                    <af:commandButton text="Select All" id="cb14"
+                                      actionListener="#{Main.SelectAll1}"
+                                      partialSubmit="true"/>
+                    <af:commandButton text="DeSelect All" id="cb15"
+                                      actionListener="#{Main.DeSelectAll1}"
+                                      partialSubmit="true"/>
+                  </af:toolbar>
+                </f:facet>
+                <f:facet name="statusbar"/>
+                <af:table value="#{bindings.FillSizeVO1.collectionModel}"
+                          var="row" rows="#{bindings.FillSizeVO1.rangeSize}"
+                          emptyText="#{bindings.FillSizeVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          fetchSize="#{bindings.FillSizeVO1.rangeSize}"
+                          rowBandingInterval="0"
+                          filterModel="#{bindings.FillSizeVO1Query.queryDescriptor}"
+                          queryListener="#{bindings.FillSizeVO1Query.processQuery}"
+                          filterVisible="true" varStatus="vs" id="t6"
+                          binding="#{Main.selectAllTable1}">
+                  <af:column id="c16" headerText="Select" align="center">
+                    <af:selectBooleanCheckbox value="#{row.bindings.SFLAG.inputValue}"
+                                              label="#{row.bindings.SFLAG.label}"
+                                              shortDesc="#{bindings.FillSizeVO1.hints.SFLAG.tooltip}"
+                                              id="sbc2"/>
+                  </af:column>
+                  <af:column headerText="Inseam"
+                             id="c7" align="center">
+                    <af:outputText value="#{row.Attribute1}" id="ot4"/>
+                  </af:column>
+                  <af:column headerText="Size"
+                             id="c12" align="center">
+                    <af:inputText value="#{row.bindings.SizeInseam.inputValue}"
+                                  label="#{bindings.FillSizeVO1.hints.SizeInseam.label}"
+                                  required="#{bindings.FillSizeVO1.hints.SizeInseam.mandatory}"
+                                  columns="#{bindings.FillSizeVO1.hints.SizeInseam.displayWidth}"
+                                  maximumLength="#{bindings.FillSizeVO1.hints.SizeInseam.precision}"
+                                  shortDesc="#{bindings.FillSizeVO1.hints.SizeInseam.tooltip}"
+                                  id="it6" readOnly="true">
+                      <f:validator binding="#{row.bindings.SizeInseam.validator}"/>
+                    </af:inputText>
+                  </af:column>
+                  <af:column headerText="Quantity"
+                             id="c13" align="center">
+                    <af:outputText value="#{row.Quantity}" id="ot5">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.FillSizeVO1.hints.Quantity.format}"/>
+                    </af:outputText>
+                  </af:column>
+                </af:table>
+              </af:panelCollection>
+            </af:dialog>
+          </af:popup>
+        </af:panelHeader>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>
