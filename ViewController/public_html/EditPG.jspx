@@ -53,12 +53,13 @@
             </af:panelLabelAndMessage>
             <af:panelLabelAndMessage label="STYLE:"
                                      id="plam2" partialTriggers="pocIdId">
-              <af:outputText value="#{bindings.StyleNew.inputValue}" id="ot13"/>
+              <af:outputText value="#{bindings.StyleNew.inputValue}" id="ot13"
+                             partialTriggers="pocIdId"/>
             </af:panelLabelAndMessage>
             <af:panelLabelAndMessage label="SEASON:"
                                      id="plam3">
               <af:outputText value="#{bindings.SeasonNew.inputValue}"
-                             id="ot14"/>
+                             id="ot14" partialTriggers="pocIdId"/>
             </af:panelLabelAndMessage>
             <af:inputDate value="#{bindings.UpdateOn.inputValue}"
                           label="Date"
