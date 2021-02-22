@@ -24,54 +24,63 @@
     </SchemaBasedProperties>
   </Properties>
   <SQLQuery>
-    <![CDATA[/* Formatted on 3/9/2020 6:42:37 PM (QP5 v5.256.13226.35510) */
------Query Updated By Syed Abdul Ahad on 7/11/2019-----
------Query Updated By Mr. Sakibul Islam on 09.Mar.2020; Added Buyer, Season Info-----
-SELECT ll.buyer_id,
-       ll.attribute1 buyer_name,
-       ll.season,
-       l.attribute1,
-       NVL ( (SELECT OOHA.ATTRIBUTE12
-                FROM OE_ORDER_HEADERS_ALL OOHA
-               WHERE OOHA.CUST_PO_NUMBER = l.attribute1 AND ROWNUM = 1),
-            l.attribute1)
-          CURRENT_BPO,
-       l.attribute2,
-       l.attribute3,
-       TO_NUMBER (l.attribute4) quantity,
-       ll.style_name,
-       h.transaction_type
-  FROM MNJ_MFG_ISSUE_REC_WASH_H h,
-       MNJ_MFG_ISSUE_REC_WASH_L_H ll,
-       MNJ_MFG_ISSUE_REC_WASH_D l
- WHERE     h.header_id = ll.header_id
-       AND ll.line_id = l.header_id
-       AND h.transaction_type = 'Ready For Finish Department'
+    <![CDATA[SELECT PH.buyer_id,
+AR.CUSTOMER_NAME buyer_name,
+PH.season,
+PB.BPO attribute1,
+PB.BPO_ID attribute2,
+PL.COLOR attribute3,
+PL.WASH_NAME ,
+TO_NUMBER (L.attribute4) quantity,
+PH.STYLE style_name,
+h.transaction_type
+FROM MNJ_MFG_ISSUE_REC_WASH_H h,
+MNJ_MFG_ISSUE_REC_WASH_L_H ll,
+MNJ_MFG_ISSUE_REC_WASH_D l,
+XX_OM_POC_H_T PH,
+XX_OM_POC_L_T PL,
+XX_OM_BPO_INFO_T PB,
+AR_CUSTOMERS AR
+WHERE h.header_id = ll.header_id
+AND ll.line_id = l.header_id
+AND h.transaction_type = 'Ready For Finish Department'
+and PH.poc_id=h.poc_id
+and ll.poc_id=PH.poc_id
+and PH.POC_ID=PL.POC_ID
+AND PL.FOB_ID=PB.FOB_ID
+AND PB.BPO_ID=L.BPO_ID
+AND AR.CUSTOMER_ID=PH.BUYER_ID
 --AND H.HEADER_ID=27816
 ---------From here added by Syed Abdul Ahad on 7/11/2019-------
 UNION ALL
-SELECT L.buyer_id,
-       L.attribute1 buyer_name,
-       L.season,
-       D.ATTRIBUTE1,
-       NVL ( (SELECT OOHA.ATTRIBUTE12
-                FROM OE_ORDER_HEADERS_ALL OOHA
-               WHERE OOHA.CUST_PO_NUMBER = L.ATTRIBUTE1 AND ROWNUM = 1),
-            D.ATTRIBUTE1)
-          CURRENT_BPO,
-       D.ATTRIBUTE2,
-       D.ATTRIBUTE3,
-       D.QUANTITY,
-       L.STYLE_NAME,
-       H.TRANSACTION_TYPE
-  --,H.RECEIVE_NO,H.TRANSACTION,H.WASH_EMB_PRINT_INVORG,D.PRODUCTION_TYPE,D.WASH_TYPE,D.ISSUANCE_CHALLAN_NO
-  FROM MNJ_MFG_ISSUE_REC_WASH_H H,
-       MNJ_MFG_ISSUE_REC_WASH_L_H L,
-       MNJ_MFG_ISSUE_REC_WASH_L D
- WHERE     1 = 1
-       AND H.HEADER_ID = L.HEADER_ID
-       AND D.HEADER_ID = L.LINE_ID                     --AND H.HEADER_ID=27816
-       AND H.TRANSACTION_TYPE = 'Ready For Finish Department']]>
+SELECT PH.buyer_id,
+AR.CUSTOMER_NAME buyer_name,
+PH.season,
+PB.BPO attribute1,
+PB.BPO_ID attribute2,
+PL.COLOR attribute3,
+PL.WASH_NAME ,
+D.QUANTITY,
+PH.STYLE style_name,
+H.TRANSACTION_TYPE
+--,H.RECEIVE_NO,H.TRANSACTION,H.WASH_EMB_PRINT_INVORG,D.PRODUCTION_TYPE,D.WASH_TYPE,D.ISSUANCE_CHALLAN_NO
+FROM MNJ_MFG_ISSUE_REC_WASH_H H,
+MNJ_MFG_ISSUE_REC_WASH_L_H L,
+MNJ_MFG_ISSUE_REC_WASH_L D,
+XX_OM_POC_H_T PH,
+XX_OM_POC_L_T PL,
+XX_OM_BPO_INFO_T PB,
+AR_CUSTOMERS AR
+WHERE 1 = 1
+AND H.HEADER_ID = L.HEADER_ID
+AND D.HEADER_ID = L.LINE_ID --AND H.HEADER_ID=27816
+AND H.TRANSACTION_TYPE = 'Ready For Finish Department'
+and PH.poc_id=h.poc_id
+and l.poc_id=PH.poc_id
+and PH.POC_ID=PL.POC_ID
+AND PL.FOB_ID=PB.FOB_ID
+AND PB.BPO_ID=D.BPO_ID
+AND AR.CUSTOMER_ID=PH.BUYER_ID]]>
   </SQLQuery>
   <ViewAttribute
     Name="BuyerId"
@@ -133,21 +142,6 @@ SELECT L.buyer_id,
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="CurrentBpo"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="250"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CURRENT_BPO"
-    Expression="CURRENT_BPO"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="250"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
     Name="Attribute2"
     IsUpdateable="false"
     IsPersistent="false"
@@ -175,6 +169,21 @@ SELECT L.buyer_id,
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="WashName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="WASH_NAME"
+    Expression="WASH_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
@@ -216,6 +225,20 @@ SELECT L.buyer_id,
     ColumnType="VARCHAR2"
     AliasName="TRANSACTION_TYPE"
     Expression="TRANSACTION_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CurrentBpo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="250"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CURRENT_BPO"
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="250"/>

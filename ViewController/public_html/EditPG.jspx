@@ -45,6 +45,7 @@
               <f:validator binding="#{bindings.PocId.validator}"/>
               <af:convertNumber groupingUsed="false"
                                 pattern="#{bindings.PocId.format}"/>
+              <af:autoSuggestBehavior suggestedItems="#{bindings.PocId.suggestedItems}"/>
             </af:inputListOfValues>
             <af:panelLabelAndMessage label="BUYER:"
                                      id="plam1">
@@ -380,6 +381,16 @@
                                               shortDesc="#{bindings.FillBPOVO1.hints.Flag.tooltip}"
                                               id="sbc1"/>
                   </af:column>
+                  <af:column headerText="BPO ID" id="c10" align="center"
+                             sortable="true" filterable="true"
+                             sortProperty="Attribute2" width="200">
+                    <af:outputText value="#{row.Attribute2}" id="ot2"/>
+                  </af:column>
+                  <af:column headerText="Bpo" id="c9" align="center"
+                             sortable="true" filterable="true"
+                             sortProperty="Attribute1" width="200">
+                    <af:outputText value="#{row.Attribute1}" id="ot1"/>
+                  </af:column>
                   <af:column headerText="Buyer"
                              id="c18" align="center" sortable="true"
                              filterable="true" sortProperty="BuyerName"
@@ -391,22 +402,11 @@
                              filterable="true" sortProperty="Season">
                     <af:outputText value="#{row.Season}" id="ot11"/>
                   </af:column>
-                  <af:column headerText="Bpo"
-                             id="c9" align="center" sortable="true"
-                             filterable="true" sortProperty="Attribute1"
-                             width="200">
-                    <af:outputText value="#{row.Attribute1}" id="ot1"/>
-                  </af:column>
                   <af:column headerText="Current Bpo"
                              id="c17" align="center" sortable="true"
-                             filterable="true" sortProperty="CurrentBpo">
+                             filterable="true" sortProperty="CurrentBpo"
+                             visible="false">
                     <af:outputText value="#{row.CurrentBpo}" id="ot9"/>
-                  </af:column>
-                  <af:column headerText="Stn"
-                             id="c10" align="center" sortable="true"
-                             filterable="true" sortProperty="Attribute2"
-                             width="200">
-                    <af:outputText value="#{row.Attribute2}" id="ot2"/>
                   </af:column>
                   <af:column headerText="Color"
                              id="c11" align="center" sortable="true"

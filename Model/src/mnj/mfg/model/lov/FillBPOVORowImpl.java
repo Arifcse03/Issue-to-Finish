@@ -54,16 +54,6 @@ public class FillBPOVORowImpl extends ViewRowImpl {
             }
         }
         ,
-        CurrentBpo {
-            public Object get(FillBPOVORowImpl obj) {
-                return obj.getCurrentBpo();
-            }
-
-            public void put(FillBPOVORowImpl obj, Object value) {
-                obj.setCurrentBpo((String)value);
-            }
-        }
-        ,
         Attribute2 {
             public Object get(FillBPOVORowImpl obj) {
                 return obj.getAttribute2();
@@ -81,6 +71,16 @@ public class FillBPOVORowImpl extends ViewRowImpl {
 
             public void put(FillBPOVORowImpl obj, Object value) {
                 obj.setAttribute3((String)value);
+            }
+        }
+        ,
+        WashName {
+            public Object get(FillBPOVORowImpl obj) {
+                return obj.getWashName();
+            }
+
+            public void put(FillBPOVORowImpl obj, Object value) {
+                obj.setWashName((String)value);
             }
         }
         ,
@@ -111,6 +111,16 @@ public class FillBPOVORowImpl extends ViewRowImpl {
 
             public void put(FillBPOVORowImpl obj, Object value) {
                 obj.setTransactionType((String)value);
+            }
+        }
+        ,
+        CurrentBpo {
+            public Object get(FillBPOVORowImpl obj) {
+                return obj.getCurrentBpo();
+            }
+
+            public void put(FillBPOVORowImpl obj, Object value) {
+                obj.setCurrentBpo((String)value);
             }
         }
         ,
@@ -196,12 +206,13 @@ public class FillBPOVORowImpl extends ViewRowImpl {
     public static final int BUYERNAME = AttributesEnum.BuyerName.index();
     public static final int SEASON = AttributesEnum.Season.index();
     public static final int ATTRIBUTE1 = AttributesEnum.Attribute1.index();
-    public static final int CURRENTBPO = AttributesEnum.CurrentBpo.index();
     public static final int ATTRIBUTE2 = AttributesEnum.Attribute2.index();
     public static final int ATTRIBUTE3 = AttributesEnum.Attribute3.index();
+    public static final int WASHNAME = AttributesEnum.WashName.index();
     public static final int QUANTITY = AttributesEnum.Quantity.index();
     public static final int STYLENAME = AttributesEnum.StyleName.index();
     public static final int TRANSACTIONTYPE = AttributesEnum.TransactionType.index();
+    public static final int CURRENTBPO = AttributesEnum.CurrentBpo.index();
     public static final int BPONO = AttributesEnum.BpoNo.index();
     public static final int ORDEREDQTY = AttributesEnum.OrderedQty.index();
     public static final int STN = AttributesEnum.Stn.index();
@@ -324,6 +335,22 @@ public class FillBPOVORowImpl extends ViewRowImpl {
      */
     public void setAttribute3(String value) {
         setAttributeInternal(ATTRIBUTE3, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute WashName.
+     * @return the WashName
+     */
+    public String getWashName() {
+        return (String) getAttributeInternal(WASHNAME);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute WashName.
+     * @param value value to set the  WashName
+     */
+    public void setWashName(String value) {
+        setAttributeInternal(WASHNAME, value);
     }
 
     /**
