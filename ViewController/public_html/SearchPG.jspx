@@ -24,7 +24,8 @@
                 <af:commandButton actionListener="#{bindings.CreateInsert.execute}"
                                   text="Create" id="cb1" action="goToEdit"/>
                 <af:commandButton actionListener="#{bindings.setCurrentRowWithKey.execute}"
-                                  text="Edit" id="cb3" action="goToEdit"/>
+                                  text="Edit" id="cb3" action="goToEdit"
+                                  visible="false"/>
                 <af:commandButton text="Save"
                                   disabled="#{!bindings.Commit.enabled}"
                                   id="cb4"/>
@@ -46,11 +47,16 @@
                       selectedRowKeys="#{bindings.HeaderVO1.collectionModel.selectedRow}"
                       selectionListener="#{bindings.HeaderVO1.collectionModel.makeCurrent}"
                       rowSelection="single" id="resId1"
-                      partialTriggers="::cb1 ::cb2 ::cb3">
+                      partialTriggers="::cb1 ::cb2 ::cb3 cl1">
               <af:column sortProperty="ReceiveNo" filterable="true"
                          sortable="true" headerText="Doc No" id="resId1c1"
                          align="center">
-                <af:outputText value="#{row.ReceiveNo}" id="ot2"/>
+                <af:outputText value="#{row.ReceiveNo}" id="ot2"
+                               visible="false"/>
+                <af:commandLink actionListener="#{bindings.setCurrentRowWithKeyValue.execute}"
+                                text="#{row.ReceiveNo}"
+                                disabled="#{!bindings.setCurrentRowWithKeyValue.enabled}"
+                                id="cl1" action="goToEdit"/>
               </af:column>
               <af:column sortProperty="StyleName" filterable="true"
                          sortable="true" headerText="Style" id="resId1c2"

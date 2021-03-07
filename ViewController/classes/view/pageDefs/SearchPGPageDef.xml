@@ -53,5 +53,9 @@
       <NamedData NDName="respAppl" NDValue="#{viewScope.RespApplId}"
                  NDType="java.lang.String"/>
     </methodAction>
+    <action IterBinding="HeaderVO1Iterator" id="setCurrentRowWithKeyValue"
+            RequiresUpdateModel="false" Action="setCurrentRowWithKeyValue">
+      <NamedData NDName="rowKey" NDType="java.lang.String"/>
+    </action>
   </bindings>
 </pageDefinition>

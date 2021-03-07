@@ -330,6 +330,11 @@ public class Main {
         if (!operationBinding.getErrors().isEmpty()) {
             return null;
         }
+        BindingContext bindingContext = BindingContext.getCurrent();
+        DCDataControl dc =bindingContext.findDataControl("MainAMDataControl"); //
+        ApplicationModule am = dc.getApplicationModule();
+        ViewObject findViewObject =am.findViewObject("HeaderVO1");
+          
         return null;
     }
 

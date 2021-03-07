@@ -81,7 +81,7 @@ public class MainAMImpl extends ApplicationModuleImpl implements MainAM {
        linerow.setAttribute("Attribute1", getPopulateValue(poprow, "Attribute1"));
         linerow.setAttribute("Attribute2", getPopulateValue(poprow, "Attribute2"));
         linerow.setAttribute("Attribute3", getPopulateValue(poprow, "Attribute3"));
-       // linerow.setAttribute("Quantity", getPopulateValue(poprow, "Quantity"));
+      linerow.setAttribute("Quantity", getPopulateValue(poprow, "Quantity"));
 
     } //end of populateLines
     public Row getRollLine() {
@@ -104,25 +104,48 @@ public class MainAMImpl extends ApplicationModuleImpl implements MainAM {
         return value;
     }
     public void setRollwhereClause(){
-            System.out.println("Wher clause cut no -->"+getstyle());
-            try {
+            System.out.println("Wher clause STYLE-->"+getstyle());
+        try {
+                    ViewObject vo = getFillBPOVO1();
+                    vo.setWhereClause("POC_ID = '"+getpoc()+"'");
+                    vo.executeQuery();
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+            
+            
+           /* try {
             ViewObject vo = getFillBPOVO1();
-            vo.setWhereClause("STYLE_NAME = '"+getstyle()+"'"+ "And SEASON = '" + getSeason()+"'" + "and buyer_id = " + getBuyerId());
-            //populatevo.setWhereClause("STYLE_NAME = '"+aa+"' and COLOR = '"+bb+"'");
+            vo.setWhereClause("STYLE_NAME = '"+getstyle()+"'"+ "And SEASON = '" + getSeason()+"'" + "and buyer_id = '"  + getBuyerId()+"'");
             vo.executeQuery();
         } catch (Exception e) {
 
             e.printStackTrace();
-        }
+        }*/
             
     }
+    //added by arif to get poc id 
+    public String getpoc(){
     
+    ViewObject vo = getHeaderVO1();
+    String pocid = null;
+    try {
+        pocid = vo.getCurrentRow().getAttribute("PocId").toString();
+    } catch (Exception e) {
+        // TODO: Add catch code
+        e.printStackTrace();
+    }
+    
+    return pocid;
+    
+    }
     public String getstyle(){
     
     ViewObject vo = getHeaderVO1();
     String cutNo = null;
     try {
-        cutNo = vo.getCurrentRow().getAttribute("StyleName").toString();
+        cutNo = vo.getCurrentRow().getAttribute("StyleNew").toString();
     } catch (Exception e) {
         // TODO: Add catch code
         e.printStackTrace();
@@ -137,7 +160,7 @@ public class MainAMImpl extends ApplicationModuleImpl implements MainAM {
     ViewObject vo = getHeaderVO1();
     String season = null;
     try {
-        season = vo.getCurrentRow().getAttribute("Season").toString();
+        season = vo.getCurrentRow().getAttribute("SeasonNew").toString();
     } catch (Exception e) {
     
         e.printStackTrace();

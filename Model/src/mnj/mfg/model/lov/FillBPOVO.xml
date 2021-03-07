@@ -30,10 +30,11 @@ PH.season,
 PB.BPO attribute1,
 PB.BPO_ID attribute2,
 PL.COLOR attribute3,
-PL.WASH_NAME ,
+PL.WASH_NAME,
 TO_NUMBER (L.attribute4) quantity,
 PH.STYLE style_name,
-h.transaction_type
+h.transaction_type,
+ph.poc_id
 FROM MNJ_MFG_ISSUE_REC_WASH_H h,
 MNJ_MFG_ISSUE_REC_WASH_L_H ll,
 MNJ_MFG_ISSUE_REC_WASH_D l,
@@ -44,12 +45,12 @@ AR_CUSTOMERS AR
 WHERE h.header_id = ll.header_id
 AND ll.line_id = l.header_id
 AND h.transaction_type = 'Ready For Finish Department'
-and PH.poc_id=h.poc_id
-and ll.poc_id=PH.poc_id
-and PH.POC_ID=PL.POC_ID
-AND PL.FOB_ID=PB.FOB_ID
-AND PB.BPO_ID=L.BPO_ID
-AND AR.CUSTOMER_ID=PH.BUYER_ID
+--AND PH.poc_id = h.poc_id
+AND ll.poc_id = PH.poc_id
+AND PH.POC_ID = PL.POC_ID
+AND PL.FOB_ID = PB.FOB_ID
+AND PB.BPO_ID = L.BPO_ID
+AND AR.CUSTOMER_ID = PH.BUYER_ID
 --AND H.HEADER_ID=27816
 ---------From here added by Syed Abdul Ahad on 7/11/2019-------
 UNION ALL
@@ -59,10 +60,11 @@ PH.season,
 PB.BPO attribute1,
 PB.BPO_ID attribute2,
 PL.COLOR attribute3,
-PL.WASH_NAME ,
+PL.WASH_NAME,
 D.QUANTITY,
 PH.STYLE style_name,
-H.TRANSACTION_TYPE
+H.TRANSACTION_TYPE,
+ph.poc_id
 --,H.RECEIVE_NO,H.TRANSACTION,H.WASH_EMB_PRINT_INVORG,D.PRODUCTION_TYPE,D.WASH_TYPE,D.ISSUANCE_CHALLAN_NO
 FROM MNJ_MFG_ISSUE_REC_WASH_H H,
 MNJ_MFG_ISSUE_REC_WASH_L_H L,
@@ -75,12 +77,12 @@ WHERE 1 = 1
 AND H.HEADER_ID = L.HEADER_ID
 AND D.HEADER_ID = L.LINE_ID --AND H.HEADER_ID=27816
 AND H.TRANSACTION_TYPE = 'Ready For Finish Department'
-and PH.poc_id=h.poc_id
-and l.poc_id=PH.poc_id
-and PH.POC_ID=PL.POC_ID
-AND PL.FOB_ID=PB.FOB_ID
-AND PB.BPO_ID=D.BPO_ID
-AND AR.CUSTOMER_ID=PH.BUYER_ID]]>
+-- AND PH.poc_id = h.poc_id
+AND l.poc_id = PH.poc_id
+AND PH.POC_ID = PL.POC_ID
+AND PL.FOB_ID = PB.FOB_ID
+AND PB.BPO_ID = D.BPO_ID
+AND AR.CUSTOMER_ID = PH.BUYER_ID]]>
   </SQLQuery>
   <ViewAttribute
     Name="BuyerId"
@@ -228,6 +230,20 @@ AND AR.CUSTOMER_ID=PH.BUYER_ID]]>
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PocId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="POC_ID"
+    Expression="POC_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute

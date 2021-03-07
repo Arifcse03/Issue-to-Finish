@@ -47,6 +47,13 @@
                                 pattern="#{bindings.PocId.format}"/>
               <af:autoSuggestBehavior suggestedItems="#{bindings.PocId.suggestedItems}"/>
             </af:inputListOfValues>
+            <af:panelLabelAndMessage label="#{bindings.BuyerId.hints.label}"
+                                     id="plam4" visible="false">
+              <af:outputText value="#{bindings.BuyerId.inputValue}" id="ot8">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.BuyerId.format}"/>
+              </af:outputText>
+            </af:panelLabelAndMessage>
             <af:panelLabelAndMessage label="BUYER:"
                                      id="plam1">
               <af:outputText value="#{bindings.BuyerNew.inputValue}" id="ot12"
@@ -152,7 +159,7 @@
                                     disabled="#{!bindings.Delete.enabled}"
                                     id="cb4"/>
                   <af:commandButton text="Fill BPO" id="cb7">
-                    <af:showPopupBehavior popupId="::popup1" alignId="::f1"/>
+                    <af:showPopupBehavior popupId="::popup1"/>
                   </af:commandButton>
                 </af:toolbar>
               </f:facet>
@@ -169,6 +176,19 @@
                         selectionListener="#{bindings.LineVO1.collectionModel.makeCurrent}"
                         rowSelection="single" id="t1"
                         partialTriggers="::cb3 ::cb4" binding="#{Main.size1st}">
+                <af:column sortProperty="Attribute2" filterable="true"
+                           sortable="true" headerText="BPO ID" id="c1"
+                           align="center">
+                  <af:inputText value="#{row.bindings.Attribute2.inputValue}"
+                                label="#{bindings.LineVO1.hints.Attribute2.label}"
+                                required="#{bindings.LineVO1.hints.Attribute2.mandatory}"
+                                columns="#{bindings.LineVO1.hints.Attribute2.displayWidth}"
+                                maximumLength="#{bindings.LineVO1.hints.Attribute2.precision}"
+                                shortDesc="#{bindings.LineVO1.hints.Attribute2.tooltip}"
+                                id="it9" readOnly="true">
+                    <f:validator binding="#{row.bindings.Attribute2.validator}"/>
+                  </af:inputText>
+                </af:column>
                 <af:column sortProperty="Attribute1" filterable="true"
                            sortable="true"
                            headerText="BPO"
@@ -181,25 +201,6 @@
                                 shortDesc="#{bindings.LineVO1.hints.Attribute1.tooltip}"
                                 id="it8" readOnly="true">
                     <f:validator binding="#{row.bindings.Attribute1.validator}"/>
-                  </af:inputText>
-                </af:column>
-                <af:column headerText="Current BPO"
-                           id="c15" align="center" sortable="true"
-                           filterable="true" sortProperty="CurrentBpo">
-                  <af:outputText value="#{row.CurrentBpo}" id="ot8"/>
-                </af:column>
-                <af:column sortProperty="Attribute2" filterable="true"
-                           sortable="true"
-                           headerText="STN"
-                           id="c1" align="center">
-                  <af:inputText value="#{row.bindings.Attribute2.inputValue}"
-                                label="#{bindings.LineVO1.hints.Attribute2.label}"
-                                required="#{bindings.LineVO1.hints.Attribute2.mandatory}"
-                                columns="#{bindings.LineVO1.hints.Attribute2.displayWidth}"
-                                maximumLength="#{bindings.LineVO1.hints.Attribute2.precision}"
-                                shortDesc="#{bindings.LineVO1.hints.Attribute2.tooltip}"
-                                id="it9" readOnly="true">
-                    <f:validator binding="#{row.bindings.Attribute2.validator}"/>
                   </af:inputText>
                 </af:column>
                 <af:column sortProperty="Attribute3" filterable="true"

@@ -114,6 +114,16 @@ public class FillBPOVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        PocId {
+            public Object get(FillBPOVORowImpl obj) {
+                return obj.getPocId();
+            }
+
+            public void put(FillBPOVORowImpl obj, Object value) {
+                obj.setPocId((Number)value);
+            }
+        }
+        ,
         CurrentBpo {
             public Object get(FillBPOVORowImpl obj) {
                 return obj.getCurrentBpo();
@@ -212,6 +222,7 @@ public class FillBPOVORowImpl extends ViewRowImpl {
     public static final int QUANTITY = AttributesEnum.Quantity.index();
     public static final int STYLENAME = AttributesEnum.StyleName.index();
     public static final int TRANSACTIONTYPE = AttributesEnum.TransactionType.index();
+    public static final int POCID = AttributesEnum.PocId.index();
     public static final int CURRENTBPO = AttributesEnum.CurrentBpo.index();
     public static final int BPONO = AttributesEnum.BpoNo.index();
     public static final int ORDEREDQTY = AttributesEnum.OrderedQty.index();
@@ -463,6 +474,22 @@ public class FillBPOVORowImpl extends ViewRowImpl {
      */
     public void setTransactionType(String value) {
         setAttributeInternal(TRANSACTIONTYPE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PocId.
+     * @return the PocId
+     */
+    public Number getPocId() {
+        return (Number) getAttributeInternal(POCID);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PocId.
+     * @param value value to set the  PocId
+     */
+    public void setPocId(Number value) {
+        setAttributeInternal(POCID, value);
     }
 
     /**
