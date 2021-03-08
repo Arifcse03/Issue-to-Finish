@@ -67,6 +67,7 @@
           <Item Value="Attribute3"/>
           <Item Value="Attribute4"/>
           <Item Value="CurrentBpo"/>
+          <Item Value="BpoId"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

@@ -358,6 +358,16 @@ public class LineEOImpl extends EntityImpl {
             }
         }
         ,
+        BpoId {
+            public Object get(LineEOImpl obj) {
+                return obj.getBpoId();
+            }
+
+            public void put(LineEOImpl obj, Object value) {
+                obj.setBpoId((Number)value);
+            }
+        }
+        ,
         InsemSizeDEO {
             public Object get(LineEOImpl obj) {
                 return obj.getInsemSizeDEO();
@@ -439,6 +449,7 @@ public class LineEOImpl extends EntityImpl {
     public static final int CREATEDBY = AttributesEnum.CreatedBy.index();
     public static final int ORGID = AttributesEnum.OrgId.index();
     public static final int CHALLANNO = AttributesEnum.ChallanNo.index();
+    public static final int BPOID = AttributesEnum.BpoId.index();
     public static final int INSEMSIZEDEO = AttributesEnum.InsemSizeDEO.index();
     public static final int HEADEREO = AttributesEnum.HeaderEO.index();
 
@@ -985,6 +996,22 @@ public class LineEOImpl extends EntityImpl {
      */
     public void setChallanNo(Number value) {
         setAttributeInternal(CHALLANNO, value);
+    }
+
+    /**
+     * Gets the attribute value for BpoId, using the alias name BpoId.
+     * @return the BpoId
+     */
+    public Number getBpoId() {
+        return (Number)getAttributeInternal(BPOID);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BpoId.
+     * @param value value to set the BpoId
+     */
+    public void setBpoId(Number value) {
+        setAttributeInternal(BPOID, value);
     }
 
     /**

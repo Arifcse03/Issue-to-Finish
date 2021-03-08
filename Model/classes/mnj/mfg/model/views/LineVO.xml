@@ -51,7 +51,8 @@ AND ROWNUM = 1),LineEO.ATTRIBUTE1) CURRENT_BPO,
        LineEO.CREATION_DATE, 
        LineEO.CREATED_BY, 
        LineEO.ORG_ID, 
-       LineEO.CHALLAN_NO
+       LineEO.CHALLAN_NO,
+       LineEO.BPO_ID
 FROM MNJ_MFG_ISSUE_TO_FINISH_L LineEO]]>
   </SQLQuery>
   <EntityUsage
@@ -283,6 +284,12 @@ FROM MNJ_MFG_ISSUE_TO_FINISH_L LineEO]]>
     SQLType="NUMERIC">
     <TransientExpression><![CDATA[InsemSizeDVO.sum("Quantity")]]></TransientExpression>
   </ViewAttribute>
+  <ViewAttribute
+    Name="BpoId"
+    PrecisionRule="true"
+    EntityAttrName="BpoId"
+    EntityUsage="LineEO"
+    AliasName="BPO_ID"/>
   <ViewLinkAccessor
     Name="InsemSizeDVO"
     ViewLink="mnj.mfg.model.views.IssueFinInseamSizeFkLink"

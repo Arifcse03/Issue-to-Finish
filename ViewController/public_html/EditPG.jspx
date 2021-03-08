@@ -176,9 +176,17 @@
                         selectionListener="#{bindings.LineVO1.collectionModel.makeCurrent}"
                         rowSelection="single" id="t1"
                         partialTriggers="::cb3 ::cb4" binding="#{Main.size1st}">
+                <af:column headerText="BPO Id"
+                           id="c15" align="center" sortable="true"
+                           filterable="true" sortProperty="BpoId">
+                  <af:outputText value="#{row.BpoId}" id="ot15">
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.LineVO1.hints.BpoId.format}"/>
+                  </af:outputText>
+                </af:column>
                 <af:column sortProperty="Attribute2" filterable="true"
                            sortable="true" headerText="BPO ID" id="c1"
-                           align="center">
+                           align="center" visible="false">
                   <af:inputText value="#{row.bindings.Attribute2.inputValue}"
                                 label="#{bindings.LineVO1.hints.Attribute2.label}"
                                 required="#{bindings.LineVO1.hints.Attribute2.mandatory}"

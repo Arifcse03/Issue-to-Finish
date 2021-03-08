@@ -223,7 +223,7 @@ public class Main {
         }
         try
         {
-            stn = itorBinding.getCurrentRow().getAttribute("Attribute2").toString();
+            stn = itorBinding.getCurrentRow().getAttribute("BpoId").toString();
         }catch(Exception e){
             ;    
         }

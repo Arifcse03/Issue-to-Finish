@@ -77,9 +77,9 @@ public class MainAMImpl extends ApplicationModuleImpl implements MainAM {
 
 
         Row linerow =getRollLine();
-        
+        linerow.setAttribute("BpoId", getPopulateValue(poprow, "Attribute2"));
        linerow.setAttribute("Attribute1", getPopulateValue(poprow, "Attribute1"));
-        linerow.setAttribute("Attribute2", getPopulateValue(poprow, "Attribute2"));
+       // linerow.setAttribute("Attribute2", getPopulateValue(poprow, "Attribute2"));
         linerow.setAttribute("Attribute3", getPopulateValue(poprow, "Attribute3"));
       linerow.setAttribute("Quantity", getPopulateValue(poprow, "Quantity"));
 
