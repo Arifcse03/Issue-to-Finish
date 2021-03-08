@@ -24,15 +24,15 @@
     </SchemaBasedProperties>
   </Properties>
   <SQLQuery>
-    <![CDATA[/* Formatted on 11/12/2019 12:44:05 PM Updated by Syed Abdul Ahad */
-  SELECT --h.header_id,
-         ReciveSizeInseemDEO.ATTRIBUTE1,
+    <![CDATA[/* Formatted on 3/8/2021 9:46:55 AM (QP5 v5.256.13226.35510) */
+  SELECT                                                        --h.header_id,
+        ReciveSizeInseemDEO.ATTRIBUTE1,
          ReciveSizeInseemDEO.SIZE_INSEAM,
          SUM (ReciveSizeInseemDEO.QUANTITY) QUANTITY,
          NULL header_id,
          ll.style_name,
-         ReceiveDetailEO.ATTRIBUTE2,
-         ll.ATTRIBUTE1 buyer,                                             
+         ReceiveDetailEO.BPO_ID ATTRIBUTE2,
+         ll.ATTRIBUTE1 buyer,
          ll.SEASON,
          ReceiveDetailEO.ATTRIBUTE1 bpo,
          ReceiveDetailEO.ATTRIBUTE3 color
@@ -49,7 +49,7 @@ GROUP BY ll.style_name,
          ll.ATTRIBUTE1,                                                    --,
          ll.SEASON,
          ReceiveDetailEO.ATTRIBUTE1,
-         ReceiveDetailEO.ATTRIBUTE2,
+         ReceiveDetailEO.BPO_ID,
          ReceiveDetailEO.ATTRIBUTE3,
          ReciveSizeInseemDEO.ATTRIBUTE1,
          ReciveSizeInseemDEO.SIZE_INSEAM
@@ -64,7 +64,7 @@ UNION ALL
          SUM (Z.QUANTITY) QUANTITY,
          NULL header_id,
          L.STYLE_NAME,
-         D.ATTRIBUTE2,
+         D.BPO_ID ATTRIBUTE2,
          L.ATTRIBUTE1 buyer,                                               --,
          L.SEASON,
          D.ATTRIBUTE1 BPO,
@@ -85,7 +85,7 @@ UNION ALL
 GROUP BY Z.ATTRIBUTE1,
          Z.SIZE_INSEAM,
          L.STYLE_NAME,
-         D.ATTRIBUTE2,
+         D.BPO_ID,
          L.ATTRIBUTE1,
          L.SEASON,
          D.ATTRIBUTE1,

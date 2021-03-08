@@ -411,23 +411,23 @@ public class MainAMImpl extends ApplicationModuleImpl implements MainAM {
         String StyleName = null;
         String Season = null;
         try{
-            BuyerName = row.getAttribute("BuyerName").toString();
+            BuyerName = row.getAttribute("BuyerNew").toString();
         }catch(Exception e){
             ;    
         }
         try{
-            StyleName = row.getAttribute("StyleName").toString();
+            StyleName = row.getAttribute("StyleNew").toString();
         }catch(Exception e){
             ;    
         }
         try{
-            Season = row.getAttribute("Season").toString();
+            Season = row.getAttribute("SeasonNew").toString();
         }catch(Exception e){
             ;    
         }
         
         ViewObject sizeVO = this.getFillSizeVO1(); 
-        sizeVO.setWhereClause("bpo = '"+bpo+"' AND ATTRIBUTE2 = '"+stn+"' AND color = '"+color+"' AND buyer = '"+BuyerName+"' AND style_name = '"+StyleName+"' AND SEASON = '"+Season+"'");
+        sizeVO.setWhereClause(" ATTRIBUTE2 = '"+stn+"'");
         System.out.println(sizeVO.getQuery());
         sizeVO.executeQuery();     
     }
